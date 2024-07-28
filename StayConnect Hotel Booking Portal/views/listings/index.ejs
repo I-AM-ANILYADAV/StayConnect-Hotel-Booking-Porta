@@ -1,0 +1,182 @@
+<%- layout("/layouts/boilerplate") %>
+
+<style>
+  /* General styles */
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for better aesthetics */
+    overflow: hidden; /* Hide any overflow to prevent images from overflowing the card */
+    margin-bottom: 20px; /* Add space between cards */
+    transition: transform 0.2s ease;
+    padding: 10px; /* Add smooth hover transition */
+  }
+
+  .card:hover {
+    transform: translateY(-5px); /* Lift the card on hover */
+  }
+
+  .card-img-top {
+    height: 20rem; /* Set a fixed height for the card image */
+    object-fit: cover; /* Cover the container uniformly */
+  }
+
+  .card-body {
+    padding: 1.5rem; /* Add padding inside the card body */
+  }
+
+  .card-title {
+    font-size: 1.25rem; /* Larger font size for title */
+    margin-bottom: 0.5rem; /* Add some spacing below the title */
+  }
+
+  .card-text {
+    font-size: 0.9rem; /* Smaller font size for text */
+    margin-bottom: 0.5rem; /* Add some spacing between text elements */
+  }
+
+  .tax-info {
+    display: none; /* Initially hide tax information */
+    font-style: italic; /* Italicize tax information */
+  }
+
+  .tax-toggle {
+    margin-top: 1rem; /* Add margin above the tax toggle */
+  }
+
+  .form-check-input {
+    cursor: pointer; /* Show pointer cursor for checkbox */
+  }
+
+  #filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.5rem; /* Add margin below filters */
+  }
+
+  .filter {
+    text-align: center;
+    margin-right: 2rem;
+    margin-top: 1.5rem;
+    opacity: 0.7;
+    cursor: pointer; /* Show pointer cursor on hover */
+  }
+
+  .filter:hover {
+    opacity: 1.2;
+  }
+
+  .filter p {
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 576px) {
+    .card-img-top {
+      height: 15rem; /* Adjust image height for smaller screens */
+    }
+
+    .card-body {
+      padding: 1rem; /* Reduce padding for smaller screens */
+    }
+
+    .card-title {
+      font-size: 1rem; /* Adjust title size for smaller screens */
+    }
+
+    .card-text {
+      font-size: 0.8rem; /* Adjust text size for smaller screens */
+    }
+
+    .filter {
+      margin-right: 1rem; /* Adjust filter spacing for smaller screens */
+    }
+  }
+</style>
+
+<div id="filters">
+  <div class="filter">
+    <div><i class="fa-solid fa-fire"></i></div>
+    <p>Trending</p>
+  </div>
+
+  <div class="filter">
+    <div><i class="fa-solid fa-bed"></i></div>
+    <p>Rooms</p>
+  </div>
+
+  <div class="filter">
+    <div><i class="fa-solid fa-mountain-city"></i></div>
+    <p>Iconic cities</p>
+  </div>
+
+  <div class="filter">
+    <div><i class="fa-solid fa-mountain"></i></div>
+    <p>Mountains</p>
+  </div>
+
+  <div class="filter">
+    <div><i class="fa-brands fa-fort-awesome"></i></div>
+    <p>Castles</p>
+  </div>
+
+  <div class="filter">
+    <div><i class="fa-solid fa-person-swimming"></i></div>
+    <p>Amazing pools</p>
+  </div>
+
+  <div class="filter">
+    <div><i class="fa-solid fa-campground"></i></div>
+    <p>Camping</p>
+  </div>
+
+  <div class="filter">
+    <div><i class="fa-solid fa-wheat-awn"></i></div>
+    <p>Farms</p>
+  </div>
+
+  <div class="filter">
+    <div><i class="fa-solid fa-snowman"></i></div>
+    <p>Arctic</p>
+  </div>
+
+  <div class="tax-toggle">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+      <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3">
+    <% for(let listing of allListings) { %>
+      <div class="col mb-4">
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+          <div class="card">
+            <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing Image">
+            <div class="card-body">
+              <h5 class="card-title"><%= listing.title %></h5>
+              <p class="card-text">&#8377;<%= listing.price.toLocaleString("en-IN") %> / night</p>
+              <p class="tax-info">+18% GST</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<script>
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+
+  taxSwitch.addEventListener("change", function() {
+    let taxInfo = document.querySelectorAll(".tax-info");
+
+    taxInfo.forEach(info => {
+      info.style.display = taxSwitch.checked ? "inline" : "none";
+    });
+  });
+</script>

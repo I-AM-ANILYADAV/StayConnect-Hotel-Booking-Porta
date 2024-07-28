@@ -1,0 +1,94 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+  body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f8f9fa; /* Light grey background for the entire page */
+  }
+
+  .card {
+    margin: 2rem auto;
+    max-width: 500px;
+    padding: 2rem;
+    background-color: #fff; /* White background for the card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the card */
+    border-radius: 8px; /* Rounded corners for the card */
+  }
+
+  .card h1 {
+    font-size: 2rem;
+    color: #333; /* Darker color for the heading */
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-weight: 700; /* Bold heading */
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: #555; /* Medium grey color for the labels */
+    font-size: 1rem; /* Increased font size for better readability */
+  }
+
+  .form-control {
+    border-radius: 4px; /* Rounded corners for the input fields */
+    font-size: 1rem; /* Increased font size for better readability */
+  }
+
+  .btn-success {
+    background-color: #28a745;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 4px; /* Rounded corners for the button */
+    width: 100%;
+    font-weight: 500; /* Medium bold button text */
+  }
+
+  .btn-success:hover {
+    background-color: #218838;
+  }
+
+  .valid-feedback {
+    display: none; /* Hide by default */
+  }
+
+  .form-control:valid ~ .valid-feedback {
+    display: block; /* Show when valid */
+  }
+
+  @media (max-width: 576px) {
+    .card {
+      padding: 1rem; /* Adjust padding for smaller screens */
+    }
+
+    .card h1 {
+      font-size: 1.75rem; /* Adjust heading size for smaller screens */
+    }
+
+    .btn-success {
+      font-size: 0.875rem; /* Adjust button size for smaller screens */
+    }
+  }
+</style>
+
+<div class="card">
+  <h1>Sign Up on Wanderlust</h1>
+  <form action="/signup" method="POST" class="needs-validation" novalidate>
+    <div class="mb-3">
+      <label for="username" class="form-label">Username:</label>
+      <input name="username" id="username" type="text" class="form-control" required />
+      <div class="valid-feedback">Looks good</div>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email:</label>
+      <input name="email" id="email" type="email" class="form-control" required />
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password:</label>
+      <input name="password" id="password" type="password" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-success">Sign Up</button>
+  </form>
+</div>

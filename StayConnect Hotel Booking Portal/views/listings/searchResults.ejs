@@ -1,0 +1,61 @@
+<%- layout("/layouts/boilerplate") %>
+
+<style>
+.image-container {
+    height: 200px; /* Set a fixed height for the image container */
+    overflow: hidden; /* Hide any overflow */
+}
+
+.image-container img {
+    height: 100%; /* Ensure the image takes up the full height of the container */
+    width: 100%; /* Ensure the image takes up the full width of the container */
+    object-fit: cover; /* Cover the container uniformly */
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for better aesthetics */
+    border-radius: 10px;
+    padding: 10px;
+     /* Slightly round the corners of the card */
+}
+
+.card-body {
+    display: flex;
+   
+    flex-direction: column;
+    justify-content: space-between; /* Ensure the content is well-spaced */
+}
+
+.card-text {
+    margin-bottom: 0.5rem; /* Add some spacing between text elements */
+}
+
+.btn-primary {
+    align-self: flex-start; /* Ensure the button is aligned to the start */
+}
+</style>
+
+<div class="container mt-5">
+    <% if(listings.length > 0) { %>
+        <h2 class="mb-4">Search Results for "<%= query %>"</h2>
+        <div class="row">
+            <% listings.forEach(listing => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="image-container">
+                            <img src="<%= listing.image.url %>" class="card-img-top img-fluid" alt="<%= listing.title %>">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title"><%= listing.title %></h5>
+                            <p class="card-text"><%= listing.location %>, <%= listing.country %></p>
+                            <p class="card-text">&#8377;<%= listing.price.toLocaleString("en-IN") %></p>
+                            <a href="/listings/<%= listing._id %>" class="btn btn-primary mb-2 ">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <h2>No listings found for "<%= query %>"</h2>
+    <% } %>
+</div>
